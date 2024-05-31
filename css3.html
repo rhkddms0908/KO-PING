@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다양한 상품 판매 사이트</title>
+    <style>
+        /* CSS 코드는 여기에 추가할 수 있습니다 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1E1E1E;
+            color: #FFF;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #FFF;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #FFD700;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .product {
+            flex: 0 0 calc(33.3333% - 40px);
+            margin-bottom: 30px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            margin: 0;
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            margin: 0;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        footer {
+            background-color: #1E1E1E;
+            color: #FFF;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .beer-icon {
+            width: 60px;
+            height: 60px;
+            background-image: url('beer_icon.png');
+            background-size: cover;
+            margin-right: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span class="beer-icon"></span> 다양한 상품 판매 사이트</h1>
+    </header>
+
+    <nav>
+        <a href="#home">홈</a>
+        <a href="#about">맥주 소개</a>
+        <a href="#soccer">축구 용품</a>
+        <a href="#chicken">치킨</a>
+        <a href="#contact">연락처</a>
+    </nav>
+
+    <main>
+        <section id="home">
+            <h2>우리의 맥주</h2>
+            <div class="product">
+                <img src="beer1.jpg" alt="맥주 1">
+                <div class="product-info">
+                    <h3>맥주 1</h3>
+                    <p>맥주 1의 설명을 여기에 추가할 수 있습니다.</p>
+                </div>
+            </div>
+
+            <div class="product">
+                <img src="beer2.jpg" alt="맥주 2">
+                <div class="product-info">
+                    <h3>맥주 2</h3>
+                    <p>맥주 2의 설명을 여기에 추가할 수 있습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>맥주 소개</h2>
+            <p>맥주에 관한 자세한 정보를 여기에 추가할 수 있습니다.</p>
+        </section>
+
+        <section id="soccer">
+            <h2>축구 용품</h2>
+            <div class="product">
+                <img src="soccer1.jpg" alt="축구용품 1">
+                <div class="product-info">
+                    <h3>축구용품 1</h3>
+                    <p>축구용품 1의 설명을 여기에 추가할 수 있습니다.</p>
+                </div>
+            </div>
+
+            <div class="product">
+                <img src="soccer2.jpg" alt="축구용품 2">
+                <div class="product-info">
+                    <h3>축구용품 2</h3>
+                    <p>축구용품 2의 설명을 여기에 추가할 수 있습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="chicken">
+            <h2>치킨</h2>
+            <div class="product">
+                <img src="chicken1.jpg" alt="치킨 1">
+                <div class="product-info">
+                    <h3>치킨 1</h3>
+                    <p>치킨 1의 설명을 여기에 추가할 수 있습니다.</p>
+                </div>
+            </div>
+
+            <div class="product">
+                <img src="chicken2.jpg" alt="치킨 2">
+                <div class="product-info">
+                    <h3>치킨 2</h3>
+                    <p>치킨 2의 설명을 여기에 추가할 수 있습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>연락처</h2>
+            <p>문의 사항이 있으시면 언제든지 연락주세요!</p>
+            <p>이메일: contact@example.com</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 다양한 상품 판매 사이트. All rights reserved.</p>
+    </footer>
+</body>
+</html>
