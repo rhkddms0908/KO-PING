@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쇼핑몰</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            color: #FFD700;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h2 {
+            margin-top: 40px;
+        }
+
+        #search {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .product-list, .cart-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .product, .cart-item {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 10px;
+            padding: 10px;
+            width: calc(33.333% - 20px);
+            box-sizing: border-box;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product:hover, .cart-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .product img, .cart-item img {
+            max-width: 100%;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .total {
+            font-size: 20px;
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .product, .cart-item {
+                width: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product, .cart-item {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>쇼핑몰</h1>
+        <nav>
+            <a href="#home">홈</a>
+            <a href="#products">상품</a>
+            <a href="#cart">장바구니</a>
+            <a href="#login">로그인</a>
+            <a href="#register">회원 가입</a>
+        </nav>
+    </header>
+
+    <main id="home">
+        <section id="search">
+            <input type="text" id="search-bar" placeholder="상품 검색...">
+            <button onclick="searchProducts()">검색</button>
+        </section>
+
+        <section id="products">
+            <h2>상품 목록</h2>
+            <div class="product-list">
+                <!-- 상품 목록이 여기에 표시됩니다 -->
+            </div>
+        </section>
+
+        <section id="cart">
+            <h2>장바구니</h2>
+            <div class="cart-list">
+                <!-- 장바구니 목록이 여기에 표시됩니다 -->
+            </div>
+            <div class="total">총 결제 금액: <span id="total-amount">0</span>원</div>
+            <button onclick="checkout()">결제하기</button>
+        </section>
+
+        <section id="login">
+            <h2>로그인</h2>
+            <form id="login-form">
+                <label for="username">사용자 이름:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">비밀번호:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">로그인</button>
+            </form>
+        </section>
+
+        <section id="register">
+            <h2>회원 가입</h2>
+            <form id="register-form">
+                <label for="new-username">사용자 이름:</label>
+                <input type="text" id="new-username" name="new-username" required>
+                <label for="new-password">비밀번호:</label>
+                <input type="password" id="new-password" name="new-password" required>
+                <button type="submit">회원 가입</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 쇼핑몰. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
+        });
+
+        const products = [
+            { id: 1, name: '상품 1', price: 10000, img: 'https://via.placeholder.com/150' },
+            { id: 2, name: '상품 2', price: 20000, img: 'https://via.placeholder.com/150' },
+            { id: 3, name: '상품 3', price: 30000, img: 'https://via.placeholder.com/150' }
+        ];
+
+        let cart = [];
+
+        function loadProducts() {
+            const productContainer = document.querySelector('.product-list');
+            productContainer.innerHTML = ''; // 기존 내용 초기화
+            products.forEach(product => {
+                const productElement = document.createElement('div');
+                productElement.classList.add('product');
+                productElement.innerHTML = `
+                    <img src="${product.img}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>${product.price}원</p>
+                    <button onclick="addToCart(${product.id})">장바구니에 추가</button>
+                `;
+                productContainer.appendChild(productElement);
+            });
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            cart.push(product);
+            updateCart();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(p => p.id !== productId);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartContainer = document.querySelector('.cart-list');
+            cartContainer.innerHTML = ''; // 기존 내용 초기화
+            let totalAmount = 0;
+
+            cart.forEach(product => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <img src="${product.img}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>${product.price}원</p>
+                    <button onclick="removeFromCart(${product.id})">제거</button>
+                `;
+                cartContainer.appendChild(cartItem);
+                totalAmount += product.price;
+            });
+
+            document.getElementById('total-amount').innerText = totalAmount;
+        }
+
+        function searchProducts() {
+            const searchBar = document.getElementById('search-bar');
+            const query = searchBar.value.toLowerCase();
+            const productContainer = document.querySelector('.product-list');
+            productContainer.innerHTML = ''; // 기존 내용 초기화
+
+            products
+                .filter(product => product.name.toLowerCase().includes(query))
+                .forEach(product => {
+                    const productElement = document.createElement('div');
+                    productElement.classList.add('product');
+                    productElement.innerHTML = `
+                        <img src="${product.img}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>${product.price}원</p>
+                        <button onclick="addToCart(${product.id})">장바구니에 추가</button>
+                    `;
+                    productContainer.appendChild(productElement);
+                });
+        }
+
+        function checkout() {
+            alert('결제 기능은 아직 구현되지 않았습니다.');
+        }
+    </script>
+</body>
+</html>
